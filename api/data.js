@@ -13,7 +13,13 @@ const fetchData = (cityName) => {
               var weatherData = JSON.parse(d)
               if (resp.statusCode === 404) {
                   console.log("The city doesn't exist in our records. Sorry.")
-                  rej(new Error("The city doesn't exist in our records. Sorry."))
+                  data = {
+                    cityName: `Not found the result for city name ${cityName}`,
+                    temp: '',
+                    weatherDesc: '',
+                    icon: ''
+                  }
+                  res(data)
 
               } else {
                   var data = {

@@ -4,28 +4,30 @@
         <h1> Today's Weather Conditions.. </h1>
     </nav>
 
-    <div class="container mx-auto my-3">
-        <div class="row g-2">
-        <% data.forEach((city)=> { %>
-            <div class="col-6">
-                <div class="m-1 p-3 border rounded-4">
-                    <h3> <%= city.cityName %> <%= city.temp %> °C. </h3>
-                    <p> <%= city.weatherDesc %></p>
-                    <img src="http://openweathermap.org/img/wn/<%=city.icon %>@2x.png">
+    <form action="/" method="post">
+        <div class="container mx-auto my-3">
+            <div class="row g-2">
+            <% for(let i = 0 ; i < 4 ; i++) { %>
+                <div class="col-6">
+                    <div class="position-relative m-1 p-3 border rounded-4">
+                        <h3> <%= data[i].cityName %> <%= data[i].temp %> °C. </h3>
+                        <p> <%= data[i].weatherDesc %></p>
+                        <img src="http://openweathermap.org/img/wn/<%=data[i].icon %>@2x.png" alt="Not Found :(">
+                        <div class="position-absolute bottom-0 end-0 mb-3 me-3">
+                            <input type="text" name="<%=i%>" placeholder="View another city">
+                            <button type="submit" class="btn btn-info">Go</button>
+                        </div>
+                    </div>
                 </div>
+            <% } %>
             </div>
-        <% }) %>
         </div>
-    </div>
+    </form>
 
     <div class="container mt-5 text-center">
-        <form action="/getWeather" method="post">
-            <div class="row">
-                <div class="col-2 text-end mt-1">
-                    <p class="text-md"><strong>Name of the city : </strong></p>
-                </div>
-                <input id="cityInput" name="cityName" type="text" class="col-2 mx-2">
-                <button type="submit" class="btn btn-info col-auto">Go</button>
+        <form action="/resetCities" method="post">
+            <div class="mx-auto">
+                <button type="submit" class="btn btn-primary btn-lg">Reset cities</button>
             </div>
         </form>
     </div>

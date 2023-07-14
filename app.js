@@ -7,8 +7,9 @@ const fetchData = require('./api/data')
 app.set('view engine', 'ejs')
 app.use(express.urlencoded({ extended: true }))
 
+var initialCities = ["Mumbai", "London", "New York", "Moscow"]
+
 app.get('/', (req, res) => {
-    const initialCities = ["Mumbai", "London", "New York", "Moscow"]
     var initialData = []
 
     const getData = async () => {
@@ -17,18 +18,26 @@ app.get('/', (req, res) => {
         })
 
         initialData.push(...await Promise.all(promises))
-        console.log(initialData)
-
         res.render('index', { data: initialData })
     }
 
     getData()
 })
 
-app.post('/getWeather', async (req, res) => {
-    const cityName = req.body.cityName
-    const data = await fetchData(cityName)
-    res.render('getWeather', { city: data })
+app.post('/', async (req, res) => {
+    
+    var numbers = Object.keys(req.body)
+    numbers.forEach((number) => {
+        if( req.body[number] !== '' ) {
+            initialCities[Number(number)] = req.body[number]
+        }
+    })
+    res.redirect('/')
+})
+
+app.post('/resetCities', (req, res) => {
+    initialCities = ["Mumbai", "London", "New York", "Moscow"]
+    res.redirect('/')
 })
 
 app.listen(port, () => console.log(`Server is running on port ${port}`)) 
