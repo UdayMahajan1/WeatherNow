@@ -1,0 +1,14 @@
+<%- include('partials/header') %>
+
+<div>
+  <div class="card" style="width: 18rem;">
+    <img src="http://openweathermap.org/img/wn/<%=city.icon %>@2x.png">
+    <div class="card-body">
+      <h3> <%= city.cityName %> <%= city.temp %> °C. </h3>
+      <p> <%= city.weatherDesc %></p>
+      <a href="/" class="btn btn-primary">Go to main page</a>
+    </div>
+  </div>
+</div>
+
+<%- include('partials/footer') %>
