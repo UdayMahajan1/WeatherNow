@@ -1,5 +1,5 @@
 require('dotenv').config()
-const https = require('node:https')
+const https = require('https')
 const appKey = process.env.APP_KEY
 
 const fetchData = (cityName) => {
